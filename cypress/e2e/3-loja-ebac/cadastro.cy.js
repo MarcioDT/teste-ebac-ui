@@ -7,6 +7,11 @@ describe('Funcionalidade cadastro', () => {
        cy.visit('http://lojaebac.ebaconline.art.br/minha-conta/') 
     });
 
+    //var email = faker.internet.email()
+    var nome = faker.person.firstName()
+    var email = faker.internet.email(nome)
+    var sobrenome = faker.person.lastName()
+
     it('Deve completar o cadastro com sucesso', () => {
         cy.get('#reg_email').type(faker.internet.email())
         cy.get('#reg_password').type('123')
@@ -22,13 +27,7 @@ describe('Funcionalidade cadastro', () => {
         cy.get('.woocommerce-message').should('contain','Detalhes da conta modificados com sucesso.')
     });
 
-    it('Deve completar o cadastro com sucesso - Usando variaveis', () => {
-        
-        //var email = faker.internet.email()
-        var nome = faker.person.firstName()
-        var email = faker.internet.email(nome)
-        var sobrenome = faker.person.lastName()
-        
+    it('Deve completar o cadastro com sucesso - Usando variaveis', () => {       
         cy.get('#reg_email').type(email)
         cy.get('#reg_password').type('123')
         cy.get(':nth-child(4) > .button').click()        
@@ -38,7 +37,6 @@ describe('Funcionalidade cadastro', () => {
 
         cy.get('#account_first_name').type(nome)
         cy.get('#account_last_name').type(sobrenome)
-        //cy.wait(5000)
         cy.get('.woocommerce-Button').click()
         cy.get('.woocommerce-message').should('contain','Detalhes da conta modificados com sucesso.')
 
