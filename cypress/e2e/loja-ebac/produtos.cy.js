@@ -43,18 +43,32 @@ describe('Funcionalidade: Produtos', () => {
 
     });
 
-    it.only('Deve buscar um produto com sucesso', () => {
+    it('Deve buscar um produto com sucesso', () => {
         let produto = 'Aero Daily Fitness Tee'
         produtosPage.buscarProduto(produto)
         cy.get('.product_title').should(produto)
     });
 
     it('Deve visitar a pagina do prduto', () => {
-        
+        produtosPage.visitarProduto('Aero Daily Fitness Tee')
+        cy.get('.product_title').should('contain','Aero Daily Fitness Tee')
     });
 
     it('Deve adicionar um produto no carrinho ', () => {
-        
+        let qtd = 7
+        produtosPage.buscarProduto('Ajax Full-Zip Sweatshirt')
+        produtosPage.addProdutoCarriho('S','Blue',qtd)
+        cy.get('.woocommerce-message').should('contain','foram adicionados no seu carrinho') 
+    });
+
+    it.only('Deve adicionar um produto no carrinho ', () => {
+    cy.fixture('produtos').then(dados => {
+
+        produtosPage.buscarProduto(dados[1].nomeProduto)
+        produtosPage.addProdutoCarriho(dados[1].tamanho,dados[1].cor,dados[1].quantidade)
+
+        cy.get('.woocommerce-message').should('contain',dados[1].nomeProduto) 
+    })
     });
 
 });

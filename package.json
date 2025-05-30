@@ -4,7 +4,8 @@
   "description": "Modulo 11",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cypress run --browser chrome ",
+    "cy:dash": "npx cypress run --record --key 99a5297a-d798-4663-908e-ed7c89bb5703"
   },
   "keywords": [],
   "author": "",
